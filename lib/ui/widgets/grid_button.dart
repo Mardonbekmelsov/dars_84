@@ -9,8 +9,8 @@ class Gridbutton extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: number == '' ? null : Colors.blue,
-        borderRadius: BorderRadius.circular(15),
+        color: Colors.teal,
+        borderRadius: BorderRadius.circular(5),
       ),
       child: Text(
         number,

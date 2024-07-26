@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<String> shuffledList = [
     '1',
-    '',
     '2',
     '3',
     '4',
@@ -29,7 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
     '12',
     '13',
     '14',
-    '15'
+    '15',
+    '',
   ];
 
   List<List<String>> numbers2D = [];
@@ -38,10 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     shuffledList.shuffle();
-    _create2DArray();
+    _createGrid();
   }
 
-  void _create2DArray() {
+  void _createGrid() {
     int size = 4;
     for (int i = 0; i < size; i++) {
       List<String> subList = [];
@@ -55,11 +55,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: Text(
+          "15 Puzzle game",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            SizedBox(height: 200),
+            const SizedBox(height: 100),
             Expanded(
               child: BlocBuilder<PuzzleBloc, PuzzleState>(
                 builder: (context, state) {
@@ -67,38 +78,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     numbers2D = state.grid;
                   }
 
-                  return Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.yellow),
-                    padding: EdgeInsets.all(20),
-                    child: GridView.builder(
-                      itemCount: shuffledList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
-                      itemBuilder: (context, index) {
-                        int row = index ~/ 4;
-                        int col = index % 4;
-                        return GestureDetector(
-                          onTap: () {
-                            BlocProvider.of<PuzzleBloc>(context)
-                                .add(OnPressedEvent(
-                              row: row,
-                              col: col,
-                            ));
-                          },
-                          child: Gridbutton(number: numbers2D[row][col]),
-                        );
-                      },
-                    ),
+                  return GridView.builder(
+                    itemCount: shuffledList.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    itemBuilder: (context, index) {
+                      int row = index ~/ 4;
+                      int col = index % 4;
+                      return GestureDetector(
+                        onTap: () {
+                          BlocProvider.of<PuzzleBloc>(context)
+                              .add(OnPressedEvent(
+                            row: row,
+                            col: col,
+                          ));
+                        },
+                        child: Gridbutton(number: numbers2D[row][col]),
+                      );
+                    },
                   );
                 },
               ),
             ),
-            SizedBox(height: 270),
           ],
         ),
       ),
