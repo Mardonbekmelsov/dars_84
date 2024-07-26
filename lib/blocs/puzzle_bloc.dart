@@ -1,3 +1,5 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_application/blocs/puzzle_event.dart';
 import 'package:flutter_application/blocs/puzzle_state.dart';
@@ -14,7 +16,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final col = event.col;
     
     if (canMove(row, col)) {
-      swapTiles(row, col);
+      swapNumbers(row, col);
       emit(PuzzleUpdatedState(grid: List.from(grid)));
     }
   }
@@ -26,7 +28,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
            (col < 3 && grid[row][col + 1] == '');
   }
 
-  void swapTiles(int row, int col) {
+  void swapNumbers(int row, int col) {
     for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
         if (grid[i][j] == '') {

@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       int row = index ~/ 4;
                       int col = index % 4;
-                      return GestureDetector(
+                      return InkWell(
                         onTap: () {
                           BlocProvider.of<PuzzleBloc>(context)
                               .add(OnPressedEvent(

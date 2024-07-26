@@ -1,3 +1,4 @@
+
 sealed class PuzzleEvent {}
 
 final class OnPressedEvent extends PuzzleEvent {

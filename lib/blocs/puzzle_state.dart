@@ -1,3 +1,4 @@
+
 sealed class PuzzleState {}
 
 final class InitialPuzzleState extends PuzzleState {}
