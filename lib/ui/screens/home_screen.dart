@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> shuffledList = [
+  List<String> numberList = [
     '1',
     '2',
     '3',
@@ -32,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
     '',
   ];
 
-  List<List<String>> numbers2D = [];
+  List<List<String>> numbersGrid = [];
 
   @override
   void initState() {
     super.initState();
-    shuffledList.shuffle();
+    numberList.shuffle();
     _createGrid();
   }
 
@@ -46,9 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
     for (int i = 0; i < size; i++) {
       List<String> subList = [];
       for (int j = 0; j < 4; j++) {
-        subList.add(shuffledList[i * size + j]);
+        subList.add(numberList[i * size + j]);
       }
-      numbers2D.add(subList);
+      numbersGrid.add(subList);
     }
   }
 
@@ -75,11 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: BlocBuilder<PuzzleBloc, PuzzleState>(
                 builder: (context, state) {
                   if (state is PuzzleUpdatedState) {
-                    numbers2D = state.grid;
+                    numbersGrid = state.grid;
                   }
 
                   return GridView.builder(
-                    itemCount: shuffledList.length,
+                    itemCount: numberList.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             col: col,
                           ));
                         },
-                        child: Gridbutton(number: numbers2D[row][col]),
+                        child: NumberWidget(number: numbersGrid[row][col]),
                       );
                     },
                   );

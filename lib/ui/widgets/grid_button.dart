@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Gridbutton extends StatelessWidget {
+class NumberWidget extends StatelessWidget {
   final String number;
-  const Gridbutton({super.key, required this.number});
+  const NumberWidget({super.key, required this.number});
 
   @override
   Widget build(BuildContext context) {
